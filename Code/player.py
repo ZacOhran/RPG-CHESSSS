@@ -7,7 +7,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__(groups)
         self.image = pygame.image.load('./Graphics/Images/player.png').convert_alpha()
         self.rect = self.image.get_rect(topleft = pos)
-        self.hitbox = self.rect.inflate(-8, -8)
+        self.hitbox = self.rect.inflate(0, 0)
 
         # Movement setup
         self.direction = pygame.math.Vector2()
@@ -21,27 +21,22 @@ class Player(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
 
         # Vertical movement
-        if keys[pygame.K_w] and not keys[pygame.K_s]:
-            self.direction.y = -1
-        elif keys[pygame.K_s] and not keys[pygame.K_w]:
-            self.direction.y = 1
+        if keys[pygame.K_w] and not keys[pygame.K_s] and not keys[pygame.K_a] and not keys[pygame.K_d]:
+            self.direction.x, self.direction.y = 0, -1
+        elif keys[pygame.K_s] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_d]:
+            self.direction.x, self.direction.y = 0, 1
+        elif keys[pygame.K_d] and not keys[pygame.K_a] and not keys[pygame.K_w] and not keys[pygame.K_s]:
+            self.direction.x, self.direction.y = 1, 0
+        elif keys[pygame.K_a] and not keys[pygame.K_d] and not keys[pygame.K_w] and not keys[pygame.K_s]:
+            self.direction.x, self.direction.y = -1, 0
         else:
-            self.direction.y = 0
-
-        # Horizontal movement
-        if keys[pygame.K_d] and not keys[pygame.K_a]:
-            self.direction.x = 1
-        elif keys[pygame.K_a] and not keys[pygame.K_d]:
-            self.direction.x = -1
-        else:
-            self.direction.x = 0
+            if self.hitbox.x % TILESIZE == 0:
+                self.direction.x = 0
+            if self.hitbox.y % TILESIZE == 0:
+                self.direction.y = 0
     
     def movement(self, speed):
         """Moving the player based on user input."""
-        # Ensuring the player's speed is constant
-        if self.direction.magnitude() != 0:
-            self.direction = self.direction.normalize()
-
         # Changing the players position and finding any collisions
         self.hitbox.x += self.direction.x * speed
         self.collision('horizontal')
