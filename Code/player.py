@@ -21,18 +21,17 @@ class Player(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
 
         # Vertical movement
-        if keys[pygame.K_w] and not keys[pygame.K_s] and not keys[pygame.K_a] and not keys[pygame.K_d]:
-            self.direction.x, self.direction.y = 0, -1
-        elif keys[pygame.K_s] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_d]:
-            self.direction.x, self.direction.y = 0, 1
-        elif keys[pygame.K_d] and not keys[pygame.K_a] and not keys[pygame.K_w] and not keys[pygame.K_s]:
-            self.direction.x, self.direction.y = 1, 0
-        elif keys[pygame.K_a] and not keys[pygame.K_d] and not keys[pygame.K_w] and not keys[pygame.K_s]:
-            self.direction.x, self.direction.y = -1, 0
-        else:
-            if self.hitbox.x % TILESIZE == 0:
+        if self.hitbox.x % TILESIZE == 0 and self.hitbox.y % TILESIZE == 0:
+            if keys[pygame.K_w] and not keys[pygame.K_s] and not keys[pygame.K_a] and not keys[pygame.K_d]:
+                self.direction.x, self.direction.y = 0, -1
+            elif keys[pygame.K_s] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_d]:
+                self.direction.x, self.direction.y = 0, 1
+            elif keys[pygame.K_d] and not keys[pygame.K_a] and not keys[pygame.K_w] and not keys[pygame.K_s]:
+                self.direction.x, self.direction.y = 1, 0
+            elif keys[pygame.K_a] and not keys[pygame.K_d] and not keys[pygame.K_w] and not keys[pygame.K_s]:
+                self.direction.x, self.direction.y = -1, 0
+            else:
                 self.direction.x = 0
-            if self.hitbox.y % TILESIZE == 0:
                 self.direction.y = 0
     
     def movement(self, speed):
