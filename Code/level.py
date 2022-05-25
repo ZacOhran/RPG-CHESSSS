@@ -1,5 +1,5 @@
 import pygame
-from Code.support import import_csv_layout
+from support import import_csv_layout
 from config import *
 from support import *
 from debug import debug
@@ -51,7 +51,7 @@ class Level:
                 y = row_index * TILESIZE
                 # Every x in world map is an obstacle
                 if col == 'x':
-                    Tile((x,y),[self.visible_sprites, self.obstacle_sprites])
+                    Tile((x,y), [self.visible_sprites, self.obstacle_sprites], "temporary")
                 # Every p is the player
                 if col == 'p':
                     self.player = Player((x,y),[self.visible_sprites], self.obstacle_sprites)
