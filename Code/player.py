@@ -2,6 +2,8 @@ import pygame
 from config import *
 
 class Player(pygame.sprite.Sprite):
+    """Create the player object, everyway the player interacts with the environment here."""
+    
     def __init__(self, pos, groups, obstacle_sprites):
         # Creating the player sprite
         super().__init__(groups)
@@ -21,7 +23,7 @@ class Player(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
 
         # Vertical movement
-        if self.hitbox.x % TILESIZE == 0 and self.hitbox.y % TILESIZE == 0:
+        if self.hitbox.x % TILESIZE == 0 and self.hitbox.y % TILESIZE == 0: # Ensure player is centered in tile
             if keys[pygame.K_w] and not keys[pygame.K_s] and not keys[pygame.K_a] and not keys[pygame.K_d]:
                 self.direction.x, self.direction.y = 0, -1
             elif keys[pygame.K_s] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_d]:
@@ -30,7 +32,7 @@ class Player(pygame.sprite.Sprite):
                 self.direction.x, self.direction.y = 1, 0
             elif keys[pygame.K_a] and not keys[pygame.K_d] and not keys[pygame.K_w] and not keys[pygame.K_s]:
                 self.direction.x, self.direction.y = -1, 0
-            else:
+            else: # Player must move to center of tile if no movement keys are being pressed
                 self.direction.x = 0
                 self.direction.y = 0
     

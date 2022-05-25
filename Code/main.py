@@ -5,6 +5,8 @@ from debug import debug
 from level import Level
 
 class Game:
+    """Create and run the entire game."""
+    
     def __init__(self):
         # General setup
         pygame.init()

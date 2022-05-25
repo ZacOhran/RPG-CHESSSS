@@ -2,6 +2,8 @@ import pygame
 from config import *
 
 class Tile(pygame.sprite.Sprite):
+    """Create every interactive background tile in the game."""
+    
     def __init__(self, pos, groups):
         # Creating the obstacle sprite
         super().__init__(groups)

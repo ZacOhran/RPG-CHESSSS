@@ -6,6 +6,8 @@ from background import Tile
 
 
 class Level:
+    """Create the entire level layout of the game."""
+    
     def __init__(self):
         # General setup
         self.display_surface = pygame.display.get_surface()
