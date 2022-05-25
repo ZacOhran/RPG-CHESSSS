@@ -40,6 +40,8 @@ class Level:
         #
         #                 if type == 'boundary':
         #                     ((x,y), [self.visible_sprites, self.obstacle_sprites], "invisible")
+        #
+        # self.player = Player((750, 750),[self.visible_sprites], self.obstacle_sprites)
 
         
         # Row Index is the number of the row, row is whats inside the row
