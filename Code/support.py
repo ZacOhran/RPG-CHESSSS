@@ -14,6 +14,21 @@ class Spritesheet:
         
         return image
 
+    def spritesheet_column(self, column, amount_of_assets):
+        column_assets = []
+        for i in range(amount_of_assets):
+            column_assets.append(self.get_image(i, column, TILESIZE, TILESIZE))
+            
+        return column_assets
+    
+    def spritesheet_number(self, number, tile_set_width):
+        row = 0
+        while number > (tile_set_width-1):
+            row += 1
+            number -= tile_set_width
+        
+        return self.get_image(row, number, TILESIZE, TILESIZE)
+
 def import_csv_layout(path):
     """Import a csv file, separate the file to understand the parts of the map."""
     map = []
@@ -25,15 +40,3 @@ def import_csv_layout(path):
             map.append(list(row))
 
         return map
-
-def import_folder(path):
-    """Import a folder with all of its assets in a list."""
-    surfaces = []
-    
-    for main_dir, sub_dir, files in walk(path):
-        for image in files:
-            full_path = f"{path}/{image}"
-            image_surf = pygame.image.load(full_path).convert_alpha()
-            surfaces.append(image_surf)
-
-    return surfaces

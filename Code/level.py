@@ -24,15 +24,14 @@ class Level:
         """Generating the map of the level that is loaded."""
         # CSV Files
         map_layouts = {
-            "boundary": import_csv_layout("./Graphics/map/map_FloorBlocks.csv"),
-            "grass": import_csv_layout("./Graphics/map/map_Grass.csv"),
-            "object": import_csv_layout("./Graphics/map/map_Objects.csv")
+            "boundary": import_csv_layout("./Graphics/Levels/Tavern_0/BackgroundBlocks.csv"),
+            "objects": import_csv_layout("./Graphics/Levels/Tavern_0/Objects.csv"),
+            "details": import_csv_layout("./Graphics/Levels/Tavern_0/Details.csv")
         }
         
-        # Graphics Folders
-        graphics = {
-            'grass': import_folder("./Graphics/Images")
-        }
+        # Spritesheets
+        self.inside_b = Spritesheet("./Graphics/Tilesets/Redo_Inside_B.png")
+        self.inside_c = Spritesheet("./Graphics/Tilesets/Redo_Inside_C.png")
         
         # For each CSV File there is a map
         for type, map in map_layouts.items():
@@ -46,8 +45,14 @@ class Level:
                         # Collision / Invisible tile to set map boundaries
                         if type == 'boundary':
                             Tile((x,y), [self.obstacle_sprites], "invisible")
+                        if type == 'objects':
+                            surf = self.inside_b.spritesheet_number(int(col), 16)
+                            Tile((x,y), [self.visible_sprites, self.obstacle_sprites], "object", surf)
+                        if type == 'details':
+                            surf = self.inside_c.spritesheet_number(int(col), 16)
+                            Tile((x,y), [self.visible_sprites, self.obstacle_sprites], "detail", surf)
         
-        self.player = Player((31*TILESIZE, 22*TILESIZE), [self.visible_sprites], self.obstacle_sprites)
+        self.player = Player((23*TILESIZE, 18*TILESIZE), [self.visible_sprites], self.obstacle_sprites)
 
     def run(self):
         """Updating and drawing the game onto the screen."""
@@ -65,7 +70,7 @@ class YCordSortCameraGroup(pygame.sprite.Group):
         self.offset = pygame.math.Vector2()
 
         # Creating the background visual
-        self.background_surface = pygame.image.load("./Graphics/tilemap/ground.png").convert()
+        self.background_surface = pygame.image.load("./Graphics/Maps/tavern_0.png").convert()
         self.background_rect = self.background_surface.get_rect(topleft=(0,0))
     
     def custom_draw(self, player):

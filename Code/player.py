@@ -1,6 +1,6 @@
 import pygame
 from config import *
-from support import Spritesheet
+from support import *
 
 class Player(pygame.sprite.Sprite):
     """Create the player object, everyway the player interacts with the environment here."""
@@ -32,22 +32,22 @@ class Player(pygame.sprite.Sprite):
         self.obstacle_sprites = obstacle_sprites
     
     def player_assets(self):
-        def spritesheet_column(column, amount_of_assets):
-            column_assets = []
-            for i in range(amount_of_assets):
-                column_assets.append(self.player_spritesheet.get_image(i, column, TILESIZE, TILESIZE))
+        # def spritesheet_column(column, amount_of_assets):
+        #     column_assets = []
+        #     for i in range(amount_of_assets):
+        #         column_assets.append(self.player_spritesheet.get_image(i, column, TILESIZE, TILESIZE))
             
-            return column_assets
+        #     return column_assets
         
         self.animations = {
         "up_idle": [self.player_spritesheet.get_image(0, 1, TILESIZE, TILESIZE)],
         "down_idle": [self.player_spritesheet.get_image(0, 0, TILESIZE, TILESIZE)],
         "left_idle": [self.player_spritesheet.get_image(0, 2, TILESIZE, TILESIZE)],
         "right_idle": [self.player_spritesheet.get_image(0, 3, TILESIZE, TILESIZE)],
-        "up": spritesheet_column(1, 4), 
-        "down": spritesheet_column(0, 4), 
-        "left": spritesheet_column(2, 4), 
-        "right": spritesheet_column(3, 4)
+        "up": self.player_spritesheet.spritesheet_column(1, 4), 
+        "down": self.player_spritesheet.spritesheet_column(0, 4), 
+        "left": self.player_spritesheet.spritesheet_column(2, 4), 
+        "right": self.player_spritesheet.spritesheet_column(3, 4)
         }
 
     def user_input(self):
