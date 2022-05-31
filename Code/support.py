@@ -1,6 +1,18 @@
 import pygame
+from config import *
 from csv import reader
 from os import walk
+
+class Spritesheet:
+    def __init__(self, file):
+        self.sheet = pygame.image.load(file).convert_alpha()
+
+    def get_image(self, row, column, width, height):
+        """Selecting individual image from image sheet."""
+        image = pygame.Surface((width, height), pygame.SRCALPHA)
+        image.blit(self.sheet, (0, 0), ((column * width), (row * height), width, height))
+        
+        return image
 
 def import_csv_layout(path):
     """Import a csv file, separate the file to understand the parts of the map."""
