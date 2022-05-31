@@ -21,7 +21,7 @@ def import_folder(path):
     for main_dir, sub_dir, files in walk(path):
         for image in files:
             full_path = f"{path}/{image}"
-            image_surf = pygame.image.Load(full_path).convert_alpha()
+            image_surf = pygame.image.load(full_path).convert_alpha()
             surfaces.append(image_surf)
 
     return surfaces

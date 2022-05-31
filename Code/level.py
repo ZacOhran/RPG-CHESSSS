@@ -23,40 +23,27 @@ class Level:
     def create_map(self):
         """Generating the map of the level that is loaded."""
         # After Tiled map creation
-        # map_layouts = {
-        #     "boundary": import_csv_layout("path")
-        # }
-        #
-        # graphics = {
-        #     'directory': import_folder("path")
-        # }
-        #
-        # for type, map in map_layouts.items():
-        #     for row_index, row in enumerate(map):
-        #         for col_index, col in enumerate(row):
-        #             if col != "-1":
-        #                 x = col_index * TILESIZE
-        #                 y = row_index * TILESIZE
-        #
-        #                 if type == 'boundary':
-        #                     ((x,y), [self.visible_sprites, self.obstacle_sprites], "invisible")
-        #
-        # self.player = Player((750, 750),[self.visible_sprites], self.obstacle_sprites)
-
+        map_layouts = {
+            "boundary": import_csv_layout("./graphics/map/map_FloorBlocks.csv"),
+            "grass": import_csv_layout("./graphics/map/map_Grass.csv"),
+            "object": import_csv_layout("./graphics/map/map_Objects.csv")
+        }
         
-        # Row Index is the number of the row, row is whats inside the row
-        for row_index, row in enumerate(WORLD_MAP):
-            # Column index is the number of the column, column is whats inside
-            for col_index, col in enumerate(row):
-                # Creating the tiles for the map
-                x = col_index * TILESIZE
-                y = row_index * TILESIZE
-                # Every x in world map is an obstacle
-                if col == 'x':
-                    Tile((x,y), [self.visible_sprites, self.obstacle_sprites], "temporary")
-                # Every p is the player
-                if col == 'p':
-                    self.player = Player((x,y),[self.visible_sprites], self.obstacle_sprites)
+        graphics = {
+            'grass': import_folder("./graphics/Images")
+        }
+        
+        for type, map in map_layouts.items():
+            for row_index, row in enumerate(map):
+                for col_index, col in enumerate(row):
+                    if col != "-1":
+                        x = col_index * TILESIZE
+                        y = row_index * TILESIZE
+        
+                        if type == 'boundary':
+                            Tile((x,y), [self.obstacle_sprites], "invisible")
+        
+        self.player = Player((31*TILESIZE, 22*TILESIZE), [self.visible_sprites], self.obstacle_sprites)
 
     def run(self):
         """Updating and drawing the game onto the screen."""
@@ -74,8 +61,8 @@ class YCordSortCameraGroup(pygame.sprite.Group):
         self.offset = pygame.math.Vector2()
 
         # Creating the background visual
-        # self.background_surface = pygame.image.load("path").convert()
-        # self.background_rect = self.background_surface.get_rect(topleft=(0,0))
+        self.background_surface = pygame.image.load("./graphics/tilemap/ground.png").convert()
+        self.background_rect = self.background_surface.get_rect(topleft=(0,0))
     
     def custom_draw(self, player):
         """Drawing all sprites in this class onto the display."""
@@ -84,8 +71,8 @@ class YCordSortCameraGroup(pygame.sprite.Group):
         self.offset.y = player.rect.centery - self.half_height
 
         # Background offset
-        # background_offset = self.background_rect.topleft - self.offset
-        # self.background_surface.blit(self.background_surface, background_offset)
+        background_offset = self.background_rect.topleft - self.offset
+        self.display_surface.blit(self.background_surface, background_offset)
 
         # Drawing sprites onto screen using offset
         for sprite in sorted(self.sprites(), key = lambda sprite: sprite.rect.centery):
