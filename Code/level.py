@@ -22,24 +22,28 @@ class Level:
     
     def create_map(self):
         """Generating the map of the level that is loaded."""
-        # After Tiled map creation
+        # CSV Files
         map_layouts = {
             "boundary": import_csv_layout("./Graphics/map/map_FloorBlocks.csv"),
             "grass": import_csv_layout("./Graphics/map/map_Grass.csv"),
             "object": import_csv_layout("./Graphics/map/map_Objects.csv")
         }
         
+        # Graphics Folders
         graphics = {
             'grass': import_folder("./Graphics/Images")
         }
         
+        # For each CSV File there is a map
         for type, map in map_layouts.items():
             for row_index, row in enumerate(map):
                 for col_index, col in enumerate(row):
+                    # -1 in CSV means no tile
                     if col != "-1":
                         x = col_index * TILESIZE
                         y = row_index * TILESIZE
-        
+
+                        # Collision / Invisible tile to set map boundaries
                         if type == 'boundary':
                             Tile((x,y), [self.obstacle_sprites], "invisible")
         
