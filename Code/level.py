@@ -24,13 +24,13 @@ class Level:
         """Generating the map of the level that is loaded."""
         # After Tiled map creation
         map_layouts = {
-            "boundary": import_csv_layout("./graphics/map/map_FloorBlocks.csv"),
-            "grass": import_csv_layout("./graphics/map/map_Grass.csv"),
-            "object": import_csv_layout("./graphics/map/map_Objects.csv")
+            "boundary": import_csv_layout("./Graphics/map/map_FloorBlocks.csv"),
+            "grass": import_csv_layout("./Graphics/map/map_Grass.csv"),
+            "object": import_csv_layout("./Graphics/map/map_Objects.csv")
         }
         
         graphics = {
-            'grass': import_folder("./graphics/Images")
+            'grass': import_folder("./Graphics/Images")
         }
         
         for type, map in map_layouts.items():
@@ -61,7 +61,7 @@ class YCordSortCameraGroup(pygame.sprite.Group):
         self.offset = pygame.math.Vector2()
 
         # Creating the background visual
-        self.background_surface = pygame.image.load("./graphics/tilemap/ground.png").convert()
+        self.background_surface = pygame.image.load("./Graphics/tilemap/ground.png").convert()
         self.background_rect = self.background_surface.get_rect(topleft=(0,0))
     
     def custom_draw(self, player):

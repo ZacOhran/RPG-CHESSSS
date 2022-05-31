@@ -11,7 +11,7 @@ class Game:
         # General setup
         pygame.init()
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-        main_icon = pygame.image.load('./graphics/Images/player.png')
+        main_icon = pygame.image.load('./Graphics/Images/player.png')
         pygame.display.set_caption('Schmoo')
         pygame.display.set_icon(main_icon)
         self.clock = pygame.time.Clock()
