@@ -24,9 +24,9 @@ class Level:
         """Generating the map of the level that is loaded."""
         # CSV Files
         map_layouts = {
-            "boundary": import_csv_layout("./Graphics/Levels/Tavern_0/BackgroundBlocks.csv"),
-            "objects": import_csv_layout("./Graphics/Levels/Tavern_0/Objects.csv"),
-            "details": import_csv_layout("./Graphics/Levels/Tavern_0/Details.csv")
+            "boundary": import_csv_layout("./Graphics/Levels/Tavern_0/boundary.csv"),
+            "inside_b": import_csv_layout("./Graphics/Levels/Tavern_0/inside_b.csv"),
+            "inside_c": import_csv_layout("./Graphics/Levels/Tavern_0/inside_c.csv")
         }
         
         # Spritesheets
@@ -44,13 +44,13 @@ class Level:
 
                         # Collision / Invisible tile to set map boundaries
                         if type == 'boundary':
-                            Tile((x,y), [self.obstacle_sprites], "invisible")
-                        if type == 'objects':
+                            Tile((x,y), [self.obstacle_sprites], "invisible", infl_x=-16)
+                        if type == 'inside_b':
                             surf = self.inside_b.spritesheet_number(int(col), 16)
-                            Tile((x,y), [self.visible_sprites, self.obstacle_sprites], "object", surf, -32, -32)
-                        if type == 'details':
+                            Tile((x,y), [self.visible_sprites, self.obstacle_sprites], "object", surf, -48, -48)
+                        if type == 'inside_c':
                             surf = self.inside_c.spritesheet_number(int(col), 16)
-                            Tile((x,y), [self.visible_sprites, self.obstacle_sprites], "detail", surf, -32, -32)
+                            Tile((x,y), [self.visible_sprites, self.obstacle_sprites], "detail", surf, -48, -62)
         
         self.player = Player((23*TILESIZE, 18*TILESIZE), [self.visible_sprites], self.obstacle_sprites)
 
