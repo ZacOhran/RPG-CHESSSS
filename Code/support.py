@@ -1,7 +1,6 @@
 import pygame
 from config import *
 from csv import reader
-from os import walk
 
 class Spritesheet:
     def __init__(self, file):

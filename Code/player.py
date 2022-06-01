@@ -32,13 +32,6 @@ class Player(pygame.sprite.Sprite):
         self.obstacle_sprites = obstacle_sprites
     
     def player_assets(self):
-        # def spritesheet_column(column, amount_of_assets):
-        #     column_assets = []
-        #     for i in range(amount_of_assets):
-        #         column_assets.append(self.player_spritesheet.get_image(i, column, TILESIZE, TILESIZE))
-            
-        #     return column_assets
-        
         self.animations = {
         "up_idle": [self.player_spritesheet.get_image(0, 1, TILESIZE, TILESIZE)],
         "down_idle": [self.player_spritesheet.get_image(0, 0, TILESIZE, TILESIZE)],
@@ -55,22 +48,21 @@ class Player(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
 
         # Movement Input
-        if self.hitbox.x % TILESIZE == 0 and self.hitbox.y % TILESIZE == 0: # Ensure player is centered in tile
-            if keys[pygame.K_w] and not keys[pygame.K_s] and not keys[pygame.K_a] and not keys[pygame.K_d]:
-                self.direction.x, self.direction.y = 0, -1
-                self.status = "up"
-            elif keys[pygame.K_s] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_d]:
-                self.direction.x, self.direction.y = 0, 1
-                self.status = "down"
-            elif keys[pygame.K_d] and not keys[pygame.K_a] and not keys[pygame.K_w] and not keys[pygame.K_s]:
-                self.direction.x, self.direction.y = 1, 0
-                self.status = "right"
-            elif keys[pygame.K_a] and not keys[pygame.K_d] and not keys[pygame.K_w] and not keys[pygame.K_s]:
-                self.direction.x, self.direction.y = -1, 0
-                self.status = "left"
-            else: # Player must move to center of tile if no movement keys are being pressed
-                self.direction.x = 0
-                self.direction.y = 0
+        if keys[pygame.K_w] and not keys[pygame.K_s] and not keys[pygame.K_a] and not keys[pygame.K_d]:
+            self.direction.x, self.direction.y = 0, -1
+            self.status = "up"
+        elif keys[pygame.K_s] and not keys[pygame.K_w] and not keys[pygame.K_a] and not keys[pygame.K_d]:
+            self.direction.x, self.direction.y = 0, 1
+            self.status = "down"
+        elif keys[pygame.K_d] and not keys[pygame.K_a] and not keys[pygame.K_w] and not keys[pygame.K_s]:
+            self.direction.x, self.direction.y = 1, 0
+            self.status = "right"
+        elif keys[pygame.K_a] and not keys[pygame.K_d] and not keys[pygame.K_w] and not keys[pygame.K_s]:
+            self.direction.x, self.direction.y = -1, 0
+            self.status = "left"
+        else: # Player must move to center of tile if no movement keys are being pressed
+            self.direction.x = 0
+            self.direction.y = 0
         
         # Action Input
         if keys[pygame.K_e]:
