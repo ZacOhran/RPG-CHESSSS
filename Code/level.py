@@ -47,10 +47,10 @@ class Level:
                             Tile((x,y), [self.obstacle_sprites], "invisible", infl_x=-16)
                         if type == 'inside_b':
                             surf = self.inside_b.spritesheet_number(int(col), 16)
-                            Tile((x,y), [self.visible_sprites, self.obstacle_sprites], "object", surf, -48, -48)
+                            Tile((x,y), [self.visible_sprites, self.obstacle_sprites], "tile", surf, -48, -48)
                         if type == 'inside_c':
                             surf = self.inside_c.spritesheet_number(int(col), 16)
-                            Tile((x,y), [self.visible_sprites, self.obstacle_sprites], "detail", surf, -48, -62)
+                            Tile((x,y), [self.visible_sprites, self.obstacle_sprites], "tile", surf, -32, -62)
         
         self.player = Player((23*TILESIZE, 18*TILESIZE), [self.visible_sprites], self.obstacle_sprites)
 
