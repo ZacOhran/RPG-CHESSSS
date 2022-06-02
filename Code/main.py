@@ -18,7 +18,7 @@ class Game:
 
         # Creating the level, and running variable
         self.running = True
-        self.level = Level()
+        self.level = Level("./Graphics/Levels/Tavern_0")
     
     def main(self):
         """Main game loop. Displays the gameplay."""

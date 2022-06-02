@@ -16,7 +16,7 @@ UI_FONT = "./Graphics/Fonts/joystix.ttf"
 UI_FONT_SIZE = 18
 
 # XP
-UI_XP_BAR_WIDTH = 500
+UI_XP_BAR_WIDTH = 350
 UI_LEVEL_R = 30
 
 # --- Colors ---

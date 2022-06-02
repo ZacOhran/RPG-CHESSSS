@@ -43,5 +43,4 @@ class UI:
 
     def run(self, player):
         self.bar(player.xp, player.xp_nl, self.xp_bar_rect, UI_XP_COLOR)
-
         self.level(player.level, UI_LEVEL_R)

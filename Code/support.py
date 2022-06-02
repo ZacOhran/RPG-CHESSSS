@@ -1,6 +1,7 @@
 import pygame
 from config import *
 from csv import reader
+from os import walk
 
 class Spritesheet:
     def __init__(self, file):
@@ -39,3 +40,18 @@ def import_csv_layout(path):
             map.append(list(row))
 
         return map
+
+def import_folder(path):
+    """Import a folder with all of its assets."""
+    csv_layouts = {}
+    bg_image = ""
+
+    for main_fol, sub_fol, files in walk(path):
+        for file in files:
+            full_path = f"{path}/{file}"
+            if "csv" in file:
+                csv_layouts[file[:-4]] = (import_csv_layout(full_path))
+            elif "png" in file:
+                bg_image = full_path
+    
+    return csv_layouts, bg_image

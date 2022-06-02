@@ -11,12 +11,14 @@ from ui import UI
 class Level:
     """Create the entire level layout of the game."""
     
-    def __init__(self):
+    def __init__(self, folder):
         # General setup
         self.display_surface = pygame.display.get_surface()
 
+        self.csv_layouts, self.bg_image_path = import_folder(folder)
+
         # Sprite group setup
-        self.visible_sprites = YCordSortCameraGroup()
+        self.visible_sprites = YCordSortCameraGroup(self.bg_image_path)
         self.obstacle_sprites = pygame.sprite.Group()
 
         # sprite setup
@@ -27,19 +29,12 @@ class Level:
     
     def create_map(self):
         """Generating the map of the level that is loaded."""
-        # CSV Files
-        map_layouts = {
-            "boundary": import_csv_layout("./Graphics/Levels/Tavern_0/boundary.csv"),
-            "inside_b": import_csv_layout("./Graphics/Levels/Tavern_0/inside_b.csv"),
-            "inside_c": import_csv_layout("./Graphics/Levels/Tavern_0/inside_c.csv")
-        }
-        
         # Spritesheets
         self.inside_b = Spritesheet("./Graphics/Tilesets/Redo_Inside_B.png")
         self.inside_c = Spritesheet("./Graphics/Tilesets/Redo_Inside_C.png")
-        
+
         # For each CSV File there is a map
-        for type, map in map_layouts.items():
+        for type, map in self.csv_layouts.items():
             for row_index, row in enumerate(map):
                 for col_index, col in enumerate(row):
                     # -1 in CSV means no tile
@@ -67,7 +62,7 @@ class Level:
 
 
 class YCordSortCameraGroup(pygame.sprite.Group):
-    def __init__(self):
+    def __init__(self, bg_path):
         # General setup
         super().__init__()
         self.display_surface = pygame.display.get_surface()
@@ -76,7 +71,7 @@ class YCordSortCameraGroup(pygame.sprite.Group):
         self.offset = pygame.math.Vector2()
 
         # Creating the background visual
-        self.background_surface = pygame.image.load("./Graphics/Maps/tavern_0.png").convert()
+        self.background_surface = pygame.image.load(bg_path).convert()
         self.background_rect = self.background_surface.get_rect(topleft=(0,0))
     
     def custom_draw(self, player):
