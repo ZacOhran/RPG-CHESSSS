@@ -1,62 +1,27 @@
 from player import *
 import random
+from stats import *
+
+#ignore this file for now not complete
 
 
 
 
+class Troops:
 
-
-
-class Knight:
-
-
-    def __init__(self, HP, ATK, DEF, MGA, MGD, MGP, SPD, CR):
-        # super().__init__()
-        self.HP = HP
-        self.ATK = ATK
-        self.DEF = DEF
-        self.MGA = MGA
-        self.MGD = MGD
-        self.MGP = MGP
-        self.SPD = SPD
-        self.CRIT = CR
-
-
-    """
-    @proPerty
-    def ATK(self):
-        ATK = self.ATK
-        return ATK
-
-    @property
-    def DEF(self):
-        DEF = self.DEF
-        return DEF
-
-    @property
-    def HP(self):
-        HP = self.HP
-        return HP
-
-    @property
-    def MGA(self):
-        MGA = self.MGA
-        return MGA
-
-    @property
-    def MGD(self):
-        MGD = self.MGD
-        return MGD
-
-    @property
-    def MGP(self):
-        MGP = self.MGP
-        return MGP
-
-    @property
-    def SPD(self):
-        return self.SPD
-        """
+    def __init__(self, character_name):
+        #target type?
+        #graphics setup - drawing the dudes on chess board if u want
+        self.character = character_name
+        troop_stat = TROOP_STATS[self.character]
+        self.HP = troop_stat['HP']
+        self.ATK = troop_stat['ATK']
+        self.DEF = troop_stat['DEF']
+        self.MGA = troop_stat['MGA']
+        self.MGD = troop_stat['MGD']
+        self.CRIT = troop_stat['CRIT']
+        self.MGP = troop_stat['MGP']
+        self.SPD = troop_stat['SPD']
 
 
 
@@ -66,34 +31,49 @@ class Knight:
         print(r)
         if r <= self.CRIT:
             # no crit
-            damage = int(int(self.ATK/target.DEF)^2 * 50)
-            damage = int(damage)
+            damage = (int(self.ATK/target.DEF)^2 * 50)
+            damage = (damage)
             target.HP_reduction(damage)
             print(f"Targets HP is reduced by {damage}")
         else:
             # yes crit
-            damage = int(int(self.ATK/target.DEF)^2 * 75)
-            damage = int(damage)
+            damage = (int(self.ATK/target.DEF)^2 * 75)
+            damage = (damage)
             target.HP_reduction(damage)
-            print(f"Targets HP is reduced by {damage}")
-        pass
+            print(f"Critical Strike! Targets HP is reduced by {damage}")
 
     def HP_reduction(self, damage):
         self.HP -= damage
         print(self.HP)
+        return self.HP
+
+class Knight(Troops):
+    # add abilities here
+    def SuperATK(self, target):
+        r1 = random.randint(0, 100)
+        print(r1)
+        if r1 >= self.CRIT:
+            # no crit
+            damage = (int(self.ATK/target.DEF)^2 * 100)
+            damage = (damage)
+            target.HP_reduction(damage)
+            print(f"Targets HP is reduced by {damage}")
+        else:
+            # yes crit
+            damage = (int(self.ATK/target.DEF)^2 * 150)
+            damage = (damage)
+            target.HP_reduction(damage)
+            print(f"Critical Strike! Targets HP is reduced by {damage}")
+    pass
+
+class Monster1(Troops):
+    # add abilities here
+    pass
 
 
 
-HP = 10000
-ATK = 10
-DEF = 10
-MGA = 0
-MGD = 10
-MGP = 0
-SPD = 5
-CR = 20
-zac = Knight(HP, ATK, DEF, MGA, MGD, MGP, SPD, CR)
-connor = Knight(HP, ATK, DEF, MGA, MGD, MGP, SPD, CR)
+zac = Knight('Knight')
+connor = Knight('Knight')
 
-zac.attack(connor)
+zac.SuperATK(connor)
 print(f"CONNORS HP IS {connor.HP}")
