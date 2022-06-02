@@ -1,5 +1,5 @@
 import pygame
-import sys
+from sys import exit
 from config import *
 from debug import debug
 from level import Level
@@ -41,4 +41,4 @@ if __name__ == '__main__':
 
     # Closing the code
     pygame.quit()
-    sys.exit()
+    exit()
