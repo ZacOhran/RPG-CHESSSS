@@ -5,6 +5,7 @@ from support import *
 from debug import debug
 from player import Player
 from background import Tile
+from ui import UI
 
 
 class Level:
@@ -18,7 +19,11 @@ class Level:
         self.visible_sprites = YCordSortCameraGroup()
         self.obstacle_sprites = pygame.sprite.Group()
 
+        # sprite setup
         self.create_map()
+
+        # UI - User Interface
+        self.ui = UI()
     
     def create_map(self):
         """Generating the map of the level that is loaded."""
@@ -58,6 +63,7 @@ class Level:
         """Updating and drawing the game onto the screen."""
         self.visible_sprites.custom_draw(self.player)
         self.visible_sprites.update()
+        self.ui.run(self.player)
 
 
 class YCordSortCameraGroup(pygame.sprite.Group):

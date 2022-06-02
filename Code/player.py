@@ -25,6 +25,11 @@ class Player(pygame.sprite.Sprite):
         self.direction = pygame.math.Vector2()
         self.speed = 4
 
+        # Player experience
+        self.level = 0
+        self.xp = 0
+        self.xp_nl = (self.level * 500) + 500
+
         # Action Values
         self.interact = False
 
@@ -67,6 +72,7 @@ class Player(pygame.sprite.Sprite):
         # Action Input
         if keys[pygame.K_e]:
             self.interact = True
+            self.xp += 50
 
     def get_status(self):
         if self.direction.x == 0 and self.direction.y == 0:
@@ -112,9 +118,18 @@ class Player(pygame.sprite.Sprite):
                     if self.direction.y < 0: # Moving up
                         self.hitbox.top = sprite.hitbox.bottom
 
+    def information(self):
+        if self.xp >= self.xp_nl:
+            extra_xp = self.xp - self.xp_nl
+            self.xp = 0 + extra_xp
+            self.level += 1
+
+        self.xp_nl = (self.level * 500) + 500
+
     def update(self):
         """Updating the player drawing."""
         self.user_input()
         self.get_status()
         self.animate()
         self.movement(self.speed)
+        self.information()
