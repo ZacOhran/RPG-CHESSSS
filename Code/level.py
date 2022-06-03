@@ -3,7 +3,6 @@ from support import import_csv_layout
 from config import *
 from support import *
 from debug import debug
-from player import Player
 from background import Tile
 from ui import UI
 
@@ -11,7 +10,7 @@ from ui import UI
 class Level:
     """Create the entire level layout of the game."""
     
-    def __init__(self, folder):
+    def __init__(self, folder, player):
         # General setup
         self.display_surface = pygame.display.get_surface()
 
@@ -22,6 +21,7 @@ class Level:
         self.obstacle_sprites = pygame.sprite.Group()
 
         # sprite setup
+        self.player = player
         self.create_map()
 
         # UI - User Interface
@@ -52,7 +52,7 @@ class Level:
                             surf = self.inside_c.spritesheet_number(int(col), 16)
                             Tile((x,y), [self.visible_sprites, self.obstacle_sprites], "tile", surf, -32, -62)
         
-        self.player = Player((23*TILESIZE, 18*TILESIZE), [self.visible_sprites], self.obstacle_sprites)
+        self.player.spawn_player((23*TILESIZE, 18*TILESIZE), [self.visible_sprites], self.obstacle_sprites)
 
     def run(self):
         """Updating and drawing the game onto the screen."""

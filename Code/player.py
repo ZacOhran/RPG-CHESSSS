@@ -5,10 +5,7 @@ from support import *
 class Player(pygame.sprite.Sprite):
     """Create the player object, everyway the player interacts with the environment here."""
     
-    def __init__(self, pos, groups, obstacle_sprites):
-        # Creating the player sprite
-        super().__init__(groups)
-        
+    def __init__(self):
         #Player graphics setup
         self.player_spritesheet = Spritesheet("./Graphics/Images/connor.png")
         self.player_assets()
@@ -18,8 +15,6 @@ class Player(pygame.sprite.Sprite):
 
         # Player object setup
         self.image = self.player_spritesheet.get_image(0, 0, TILESIZE, TILESIZE)
-        self.rect = self.image.get_rect(topleft = pos)
-        self.hitbox = self.rect.inflate(0, 0)
 
         # Movement setup
         self.direction = pygame.math.Vector2()
@@ -32,10 +27,18 @@ class Player(pygame.sprite.Sprite):
 
         # Action Values
         self.interact = False
+    
+    def spawn_player(self, pos, groups, obstacle_sprites):
+        # Creating the player sprite
+        super().__init__(groups)
+
+        # Player object setup
+        self.rect = self.image.get_rect(topleft = pos)
+        self.hitbox = self.rect.inflate(0, 0)
 
         # Collision setup
         self.obstacle_sprites = obstacle_sprites
-    
+
     def player_assets(self):
         self.animations = {
         "up_idle": [self.player_spritesheet.get_image(0, 1, TILESIZE, TILESIZE)],

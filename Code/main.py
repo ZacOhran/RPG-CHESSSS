@@ -3,6 +3,7 @@ from sys import exit
 from config import *
 from debug import debug
 from level import Level
+from player import Player
 
 class Game:
     """Create and run the entire game."""
@@ -16,9 +17,12 @@ class Game:
         pygame.display.set_icon(main_icon)
         self.clock = pygame.time.Clock()
 
-        # Creating the level, and running variable
+        # Creating player
+        self.player = Player()
+
+        # Creating the level
         self.running = True
-        self.level = Level("./Graphics/Levels/Tavern_0")
+        self.tavern_0 = Level("./Graphics/Levels/Tavern_0", self.player)
     
     def main(self):
         """Main game loop. Displays the gameplay."""
@@ -29,7 +33,7 @@ class Game:
             
             # Updating the screen
             self.screen.fill(BLACK)
-            self.level.run()
+            self.tavern_0.run()
             pygame.display.update()
             self.clock.tick(FPS)
 
