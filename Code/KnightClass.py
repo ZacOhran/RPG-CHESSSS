@@ -64,7 +64,11 @@ class Knight(Troops):
             damage = (damage)
             target.HP_reduction(damage)
             print(f"Critical Strike! Targets HP is reduced by {damage}")
-    pass
+
+
+    def DefenceUp(self):
+        # find way to increase DEF for 3 turns? maybe figure out that timing first.
+        pass
 
 class Monster1(Troops):
     # add abilities here

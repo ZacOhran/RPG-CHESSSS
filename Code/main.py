@@ -37,7 +37,10 @@ class Game:
             pygame.display.update()
             self.clock.tick(FPS)
 
+            # if BATTLE:
+                # im thkinking this is where we check if there is a fight happening and update the stuff.
 
+0
 if __name__ == '__main__':
     # Creating the game
     game = Game()
